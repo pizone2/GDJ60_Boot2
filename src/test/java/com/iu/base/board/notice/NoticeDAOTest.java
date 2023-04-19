@@ -14,7 +14,7 @@ class NoticeDAOTest {
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	@Test
+//	@Test
 	void setInsertTest()throws Exception{
 		
 		

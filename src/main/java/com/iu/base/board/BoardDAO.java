@@ -13,10 +13,16 @@ public interface BoardDAO {
 	public List<BoardVO> getList(Pager pager)throws Exception;
 	
 	//글하나 조회
-	public BoardVO setDetail(BoardVO boardVO)throws Exception;
+	public BoardFileVO getFileDown(BoardFileVO boardFileVO)throws Exception;
+	
+	//글하나 조회
+	public BoardVO getDetail(BoardVO boardVO)throws Exception;
 	
 	//글쓰기
 	public int setInsert(BoardVO boardVO)throws Exception;
+	
+	//파일글쓰기
+	public int setFileInsert(BoardFileVO boardFileVO)throws Exception;
 	
 	//글수정
 	public int setUpdate(BoardVO boardVO)throws Exception;
