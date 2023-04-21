@@ -14,10 +14,13 @@ public class WebConfig implements WebMvcConfigurer {
 	@Value("${app.url.path}")
 	private String urlPath;
 	
+
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler(urlPath)
 			.addResourceLocations(basePath);
+		
 		
 	}
 }

@@ -13,6 +13,7 @@
         <!-- css favicon -->
         <c:import url="../temp/style.jsp"></c:import>
         <!-- css favicon end-->
+        
     </head>
 </head>
  <body class="d-flex flex-column h-100">
@@ -44,7 +45,7 @@
                                 <form id="contactForm" action="./join" method="post" data-sb-form-api-token="API_TOKEN">
                                     <!-- Name input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="userName" name="userName" type="text" placeholder="Enter your name..." data-sb-validations="required" />
+                                        <input class="form-control" id="userName" name="userName" type="text" required="required" placeholder="Enter your name..." data-sb-validations="required" />
                                         <label for="name">UserName</label>
                                         <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                                     </div>
@@ -52,6 +53,30 @@
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="password" name="password" type="password" placeholder="name@example.com" data-sb-validations="required,email" />
                                         <label for="password">Password</label>
+                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="passwordCheck" name="passwordCheck" type="password" placeholder="name@example.com" data-sb-validations="required,email" />
+                                        <label for="passwordCheck">Password</label>
+                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="name" name="name" type="text" placeholder="name@example.com" data-sb-validations="required,email" />
+                                        <label for="name">name</label>
+                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                                        <label for="email">email</label>
+                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                    </div>
+                                      <div class="form-floating mb-3">
+                                        <input class="form-control" id="birth" name="birth" type="date" placeholder="name@example.com" data-sb-validations="required,email" />
+                                        <label for="birth">birth</label>
                                         <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
                                         <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
                                     </div>
@@ -110,6 +135,7 @@
 	</main>
 	<!-- Footer 적용 -->
     <c:import url="../temp/footer.jsp"></c:import>
+    <script type="text/javascript" src="../js/joinFormCheck.js"></script>
      <!-- Footer 끝 -->
 </body>
 </html>

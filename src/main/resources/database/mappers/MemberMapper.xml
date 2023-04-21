@@ -5,6 +5,21 @@
   
  <mapper namespace="com.iu.base.board.member.MemberDAO">
  
+ 	<insert id="setJoin" parameterType="memberVO" >
+	   INSERT INTO MEMBER (USERNAME, PASSWORD,NAME, EMAIL,BIRTH,ENABLED)
+	   VALUES(#{userName},#{password},#{name},#{email},#{birth},1)
+   </insert> 
+   
+ 	<insert id="setMemberRole" parameterType="Map" >
+	   INSERT INTO MEMBERROLE (USERNAME,NUM)
+	   VALUES(#{userName},#{num})
+   </insert> 
+ 
+ 	<select id="idDuplicateCheck" parameterType="MemberVO" resultType="MemberVO">
+ 		SELECT USERNAME FROM MEMBER WHERE USERNAME=#{userName}
+ 	</select>
+ 
+ 
  	<select id="getLogin" parameterType="MemberVO" resultMap="getLoginResult">
  		SELECT M.userName, M.email, R.num, R.ROLENAME
  		FROM MEMBER M
@@ -28,9 +43,7 @@
  	
  	</resultMap>
  	
- 	<insert id="setJoin" parameterType="MemberVO">
- 		INSERT INTO MEMBER VALUES(#{userName},#{password},#{name},#{email},#{birth},1)
- 	</insert>
+ 	
  
  	
  </mapper>
