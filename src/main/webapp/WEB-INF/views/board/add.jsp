@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,23 +45,24 @@
                                 <!-- To make this form functional, sign up at-->
                                 <!-- https://startbootstrap.com/solution/contact-forms-->
                                 <!-- to get an API token!-->
-                                <form id="contactForm" action="./add" method="post" enctype="multipart/form-data">
+                                
+                                <form:form id="contactForm" modelAttribute="boardVO" action="./add" method="post" enctype="multipart/form-data">
                                     <!-- Title input-->
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="title" name="title" type="text" placeholder="Enter Title..." data-sb-validations="required" />
+                                    <div class="form-floating mb-3">                                        
+                                        <form:input path="title" id="title" cssClass="form-control"/>                                        
                                         <label for="title">Title</label>
+                                        <form:errors path="title"></form:errors>
                                         <div class="invalid-feedback" data-sb-feedback="title:required">A name is required.</div>
                                     </div>
                                     <!-- ID address input-->
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="id" name="id" type="text" placeholder="name@example.com" data-sb-validations="required,email" />
+                                    <div class="form-floating mb-3">                                        
+                                        <form:input path="id" id="id" cssClass="form-control"/>
                                         <label for="id">ID</label>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                        <form:errors path="id"></form:errors>
                                     </div>                                   
                                     <!-- Message input-->
                                     <div class="form-floating mb-3">
-                                        <textarea class="form-control" id="contents" name="contents"  placeholder="Enter your contents here..." style="height: 10rem" data-sb-validations="required"></textarea>
+                                        <textarea class="form-control" id="contents" name="contents"  placeholder="Enter your contents here..." style="height: 10rem" data-sb-validations="required"></textarea>                                        
                                         <label for="contents">Contents</label>
                                         <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
                                     </div>
@@ -74,8 +76,9 @@
                                     
                                   
                                    <!-- Submit Button-->
-                                    <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Submit</button></div>
-                                </form>
+                                    <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="Submit">Submit</button></div>
+                                </form:form>
+                              
                             </div>
                         </div>
                     </div>
@@ -112,6 +115,6 @@
      
      
      
-     <script type="text/javascript" src="../js/boardForm.js"></script>
+     <!-- <script type="text/javascript" src="../js/boardForm.js"></script> -->
 </body>
 </html>

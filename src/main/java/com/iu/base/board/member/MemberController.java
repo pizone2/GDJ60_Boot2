@@ -5,12 +5,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.catalina.filters.ExpiresFilter.XHttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -72,37 +74,45 @@ public class MemberController {
    }
    
    
-   @GetMapping("idDuplicateCheck")
-   @ResponseBody
-	public Boolean idDuplicateCheck(MemberVO memberVO)throws Exception{
-	   log.debug("============= ID 중복체크 =============");
-	   boolean check =false;
-	   
-	   memberVO = memberService.idDuplicateCheck(memberVO);
-	   
-	   if(memberVO == null ) {
-		   check = true;
-	   }
-	   
-	   return check;
-   }
+//   @GetMapping("idDuplicateCheck")
+//   @ResponseBody
+//	public Boolean idDuplicateCheck(MemberVO memberVO)throws Exception{
+//	   log.debug("============= ID 중복체크 =============");
+//	   boolean check =false;
+//	   
+//	   memberVO = memberService.idDuplicateCheck(memberVO);
+//	   
+//	   if(memberVO == null ) {
+//		   check = true;
+//	   }
+//	   
+//	   return check;
+//   }
    
    @GetMapping("join")
-	public ModelAndView setJoin()throws Exception{
+	public ModelAndView setJoin(@ModelAttribute MemberVO memberVO)throws Exception{
 		ModelAndView mv = new ModelAndView();		
 		mv.setViewName("/member/join");
 		return mv;
 	}
 	
 	@PostMapping("join")
-	public ModelAndView setJoin(MemberVO memberVO) throws Exception {
-		ModelAndView modelAndView = new ModelAndView();
+	public ModelAndView setJoin(@Valid MemberVO memberVO,BindingResult bindingResult) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		boolean check = memberService.memberCheck(memberVO, bindingResult);
+		
+		if(check) {
+			log.warn("=== 검증실패 ===");			
+			mv.setViewName("member/join");
+			return mv;
+		}
 		
 		int result = memberService.setJoin(memberVO);
 		
 		
-		modelAndView.setViewName("redirect:../");
-		return modelAndView;
+		mv.setViewName("redirect:../");
+		return mv;
 	}
    
    
