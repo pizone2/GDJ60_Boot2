@@ -23,6 +23,9 @@ public class BoardVO {
 	private String contents;
 	private Date datecreated;
 	private Long hit;
+	private SubVO subVO;
+//	private String [] names;
+	private List<String> names;
 	
 	private List<BoardFileVO> boardFileVOs;
 }

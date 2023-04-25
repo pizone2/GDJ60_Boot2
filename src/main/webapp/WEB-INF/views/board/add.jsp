@@ -59,7 +59,33 @@
                                         <form:input path="id" id="id" cssClass="form-control"/>
                                         <label for="id">ID</label>
                                         <form:errors path="id"></form:errors>
-                                    </div>                                   
+                                    </div>  
+                                    
+                                     <div class="form-floating mb-3">                                        
+                                        <form:input path="subVO.subName" id="subVO.subName" cssClass="form-control"/>
+                                        <label for="subVO.subName">SubName</label>
+                                        
+                                    </div>                                  
+                                     <div class="form-floating mb-3">                                        
+                                        <form:input path="names" id="names" cssClass="form-control"/>
+                                        <label for="names">names</label>
+                                        
+                                    </div>                                  
+                                     <div class="form-floating mb-3">                                        
+                                        <form:input path="boardFileVOs[0].fileName" id="names" cssClass="form-control"/>
+                                        <label for="names">names</label>
+                                        
+                                    </div>     
+                                    
+                                     <div class="form-floating mb-3">                                        
+                                        <form:input path="boardFileVOs[1].fileName" id="names" cssClass="form-control"/>
+                                        <label for="names">BoardFileName</label>
+                                        
+                                    </div>   <div class="form-floating mb-3">                                        
+                                        <form:input path="names" id="names" cssClass="form-control"/>
+                                        <label for="names">BoardFileName</label>
+                                        
+                                    </div>                               
                                     <!-- Message input-->
                                     <div class="form-floating mb-3">
                                         <textarea class="form-control" id="contents" name="contents"  placeholder="Enter your contents here..." style="height: 10rem" data-sb-validations="required"></textarea>                                        
