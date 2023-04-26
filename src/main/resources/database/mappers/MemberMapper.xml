@@ -14,6 +14,20 @@
 	   INSERT INTO MEMBERROLE (USERNAME,NUM)
 	   VALUES(#{userName},#{num})
    </insert> 
+   
+   <update id="setLogOut" parameterType="MemberVO">
+   		UPDATE MEMBER SET LASTTIME=NOW() 
+   		WHERE USERNAME=#{userName}
+   </update>
+   
+   <update id="setEnabled">
+	   UPDATE MEMBER SET ENABLED = 0
+	   WHERE LASTTIME &lt;= DATE_SUB(NOW(), INTERVAL 3 DAY);
+	</update>
+	
+  	<select id="getMemberList" resultType="MemberVO">
+  		SELECT USERNAME FROM MEMBER
+  	</select>
  
  	<select id="idDuplicateCheck" parameterType="MemberVO" resultType="MemberVO">
  		SELECT USERNAME FROM MEMBER WHERE USERNAME=#{userName}
