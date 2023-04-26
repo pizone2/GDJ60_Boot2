@@ -29,6 +29,8 @@ public class MemberController {
    @Autowired
    private MemberService memberService;
    
+ 
+   
    @GetMapping("mypage")
    public void getMyPage() throws Exception{
 	   
@@ -48,12 +50,21 @@ public class MemberController {
    }
    
    @GetMapping("logout")
-   public ModelAndView getLogOut(HttpSession session) throws Exception{
+   public ModelAndView getLogOut(HttpSession session,MemberVO memberVO) throws Exception{
       ModelAndView mv = new ModelAndView();
+      
+      
+      memberVO = (MemberVO) session.getAttribute("member");
+      memberVO.setUserName(memberVO.getUserName());
+      memberService.setLogOut(memberVO);
+      
       session.invalidate();
       mv.setViewName("redirect:/");
       return mv;
    }
+   
+   
+   
    
    
    @PostMapping("login")

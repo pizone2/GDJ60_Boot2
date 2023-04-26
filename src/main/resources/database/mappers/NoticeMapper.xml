@@ -66,6 +66,14 @@
  		VALUES(#{num},#{id}, #{title}, #{contents}, now(), 0)
  	</insert>
  	
+ 	<insert id="setBirth">
+	 	INSERT INTO NOTICE (ID, TITLE, CONTENTS, DATECREATED, HIT)
+	 	VALUES ('관리자', '생일 축하합니다! ', 
+		  (SELECT CONCAT(GROUP_CONCAT(USERNAME SEPARATOR ', '), ', 츄카포카') FROM MEMBER 
+   		   WHERE DAY(BIRTH) = DAY(CURDATE()) AND MONTH(BIRTH) = MONTH(CURDATE())),
+  		CURDATE(), 0);
+	</insert>
+ 	
  	<update id="setUpdate" parameterType="BoardVO">
  		UPDATE NOTICE SET TITLE=#{title},CONTENTS=#{contents}
  		WHERE NUM=#{num}
