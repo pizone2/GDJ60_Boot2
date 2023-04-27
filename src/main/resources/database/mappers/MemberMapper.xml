@@ -5,19 +5,24 @@
   
  <mapper namespace="com.iu.base.board.member.MemberDAO">
  
+ 	<select id="getBirth" resultType="MemberVO">
+		SELECT NAME, EMAIL FROM MEMBER
+		WHERE DATE_FORMAT(birth, '%M-%D')=DATE_FORMAT(now(), '%M-%D')
+	</select>
+ 
  	<insert id="setJoin" parameterType="memberVO" >
-	   INSERT INTO MEMBER (USERNAME, PASSWORD,NAME, EMAIL,BIRTH,ENABLED)
-	   VALUES(#{userName},#{password},#{name},#{email},#{birth},1)
+	   INSERT INTO MEMBER (username, PASSWORD,NAME, EMAIL,BIRTH,ENABLED)
+	   VALUES(#{username},#{password},#{name},#{email},#{birth},1)
    </insert> 
    
  	<insert id="setMemberRole" parameterType="Map" >
-	   INSERT INTO MEMBERROLE (USERNAME,NUM)
-	   VALUES(#{userName},#{num})
+	   INSERT INTO MEMBERROLE (username,NUM)
+	   VALUES(#{username},#{num})
    </insert> 
    
    <update id="setLogOut" parameterType="MemberVO">
    		UPDATE MEMBER SET LASTTIME=NOW() 
-   		WHERE USERNAME=#{userName}
+   		WHERE username=#{username}
    </update>
    
    <update id="setEnabled">
@@ -26,32 +31,53 @@
 	</update>
 	
   	<select id="getMemberList" resultType="MemberVO">
-  		SELECT USERNAME FROM MEMBER
+  		SELECT username FROM MEMBER
   	</select>
  
  	<select id="idDuplicateCheck" parameterType="MemberVO" resultType="MemberVO">
- 		SELECT USERNAME FROM MEMBER WHERE USERNAME=#{userName}
+ 		SELECT username FROM MEMBER WHERE username=#{username}
  	</select>
  
  
  	<select id="getLogin" parameterType="MemberVO" resultMap="getLoginResult">
- 		SELECT M.userName, M.email, R.num, R.ROLENAME
+ 		SELECT M.username,M.password, M.email, R.num, R.ROLENAME
  		FROM MEMBER M
  			INNER JOIN
  			MEMBERROLE MR
- 			ON M.USERNAME = MR.USERNAME
+ 			ON M.username = MR.username
  			INNER JOIN
  			ROLE R
  			ON MR.NUM = R.NUM
- 		WHERE M.USERNAME=#{userName} AND M.PASSWORD=#{password} 		
+ 		WHERE M.username=#{username}		
  	</select>
  	
+ 	<select id="getMemberDetail" parameterType="MemberVO" resultType="MemberVO">
+ 		SELECT * FROM MEMBER WHERE username = #{username}
+ 	</select>
+ 	
+ 	<update id="setMemberUpdate" parameterType="MemberVO">
+ 		UPDATE MEMBER 
+ 		<trim prefix="SET" suffixOverrides=",">
+ 			username = #{username},
+ 			<if test="password != ''">password = #{password},</if>
+ 			<if test="email != ''">email = #{email},</if> 			
+ 			<if test="name != ''">name = #{name},</if>
+ 			<if test="birth != ''">birth = #{birth},</if>
+ 		</trim>
+ 		WHERE username = #{username}
+ 	</update>
+ 	
+ 	<update id="setMemberUpdatePw" parameterType="MemberVO">
+		UPDATE MEMBER SET password = #{changeMemberPw} WHERE username = #{username} 
+	</update>
+ 	
  	<resultMap type="MemberVO" id="getLoginResult">
- 		<id property="userName" column="userName"/>
- 		<result property="email" column="email"/>
+ 		<id property="username" column="USERNAME"/>
+ 		<result property="password" column="PASSWORD" />
+ 		<result property="email" column="EMAIL"/>
  		<collection property="roleVOs" javaType="List" ofType="RoleVO">
- 			<id property="num" column="num"/>
- 			<result property="roleName" column="roleName"/>
+ 			<id property="num" column="NUM"/>
+ 			<result property="roleName" column="ROLENAME"/>
  		</collection>
  		
  	

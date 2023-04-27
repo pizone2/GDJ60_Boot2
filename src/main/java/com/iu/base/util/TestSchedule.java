@@ -36,7 +36,7 @@ public class TestSchedule {
 //		noticeDAO.setBirth();
 		
 		for(MemberVO memberVO :ar ) {
-			log.error("========== ID : {}  ========",memberVO.getUserName());
+			log.error("========== ID : {}  ========",memberVO.getUsername());
 		}
 		
 		

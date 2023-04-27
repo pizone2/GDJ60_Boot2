@@ -1,6 +1,7 @@
 package com.iu.base.board.member;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +10,8 @@ import javax.validation.Valid;
 
 import org.apache.catalina.filters.ExpiresFilter.XHttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +32,55 @@ public class MemberController {
    @Autowired
    private MemberService memberService;
    
+   @GetMapping("findPassword")
+	public ModelAndView getMemberFindPw(MemberVO memberVO) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("member/findPassword");
+		return modelAndView;
+	}
+	
+	// memberId, email 입력받음
+	@PostMapping("findPassword")
+	public ModelAndView getMemberFindPw(MemberVO memberVO,HttpSession session) throws Exception {
+		ModelAndView modelAndView = new ModelAndView();
+		String message = "";
+		String url = "/";
+		int result = memberService.getMemberFindPw(memberVO);
+		
+		if(result > 0) {
+			message = "이메일에 비밀번호를 성공적으로 보냄!";
+		}else {
+			message = "존재하지 않는 아이디 또는 이메일 입니다";
+			url = "./findPw";
+		}
+		
+		modelAndView.addObject("message", message);
+		modelAndView.addObject("url", url);
+		modelAndView.setViewName("redirect:/");
+		
+		return modelAndView;
+	}
+	
+   
+   @GetMapping("info")
+   public void info(HttpSession session) {
+	   log.error("======= Login Info ======");
+	   //SPRING_SECURITY_CONTEXT
+//	   Enumeration<String> names = session.getAttributeNames();
+//	   while(names.hasMoreElements()) {
+//		   log.error("=== {} ===", names.nextElement());
+//	   }
+	   Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+	   SecurityContextImpl contextImpl = (SecurityContextImpl) obj;
+	   Authentication authentication = contextImpl.getAuthentication();
+	   
+	   log.error("==== {} ======",obj);
+	   log.error("==== NAME :  {} ======",authentication.getName());
+	   log.error("==== DETAIL  :  {} ======",authentication.getDetails());
+	   log.error("==== Principal  :  {} ======",authentication.getPrincipal());
+	   
+   }
+   
  
    
    @GetMapping("mypage")
@@ -40,6 +92,8 @@ public class MemberController {
    public void getAdminPage() throws Exception{
 	   
    }
+   
+   
    
    
    @GetMapping("login")
@@ -55,7 +109,7 @@ public class MemberController {
       
       
       memberVO = (MemberVO) session.getAttribute("member");
-      memberVO.setUserName(memberVO.getUserName());
+      memberVO.setUsername(memberVO.getUsername());
       memberService.setLogOut(memberVO);
       
       session.invalidate();
@@ -63,26 +117,27 @@ public class MemberController {
       return mv;
    }
    
+  
    
    
+// @@@@@@@@@@@@@@@@@@@@  Security Config 사용하면 없어도 실행됌 @@@@@@@@@@@@@@@@@@@@
    
-   
-   @PostMapping("login")
-   public ModelAndView getLogin(MemberVO memberVO, HttpSession session,String remember,HttpServletResponse response) throws Exception{
-      ModelAndView mv = new ModelAndView();
-      memberVO = memberService.getLogin(memberVO);
-      
-      session.setAttribute("member", memberVO);
-
-      mv.setViewName("redirect:./login");
-      if(memberVO !=null) {
-
-         mv.setViewName("redirect:/");
-      }
-      
-      
-      return mv;
-   }
+//   @PostMapping("login")
+//   public ModelAndView getLogin(MemberVO memberVO, HttpSession session,String remember,HttpServletResponse response) throws Exception{
+//      ModelAndView mv = new ModelAndView();
+//      memberVO = memberService.getLogin(memberVO);
+//      
+//      session.setAttribute("member", memberVO);
+//
+//      mv.setViewName("redirect:./login");
+//      if(memberVO !=null) {
+//
+//         mv.setViewName("redirect:/");
+//      }
+//      
+//      
+//      return mv;
+//   }
    
    
 //   @GetMapping("idDuplicateCheck")

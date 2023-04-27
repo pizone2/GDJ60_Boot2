@@ -44,7 +44,7 @@
                                 <!-- https://startbootstrap.com/solution/contact-forms-->
                                 <!-- to get an API token!-->
                                 
-                                 <form:form id="contactForm" modelAttribute="memberVO" action="./join" method="post" enctype="multipart/form-data">
+                                 <form:form id="contactForm" modelAttribute="memberVO" action="./findPassword" method="post" enctype="multipart/form-data">
                                     <!-- Name input-->
                                     <div class="form-floating mb-3">
                                       
@@ -53,27 +53,7 @@
                                         <form:errors path="username"></form:errors>
                                        
                                     </div>
-                                    <!-- Email address input-->
-                                    <div class="form-floating mb-3">
-                                       
-                                        <form:password path="password" id="password" cssClass="form-control"/>
-                                        <label for="password">Password</label>
-                                        <form:errors path="password"></form:errors>
-                                        
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <form:input path="passwordCheck" class="form-control" id="passwordCheck" />                                                                              	
-                                        <label for="passwordCheck">Password</label>
-                                        <form:errors path="passwordCheck"></form:errors>
-                                                                                
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        
-                                        <form:input path="name" id="name" cssClass="form-control"/>
-                                        <label for="name">name</label>
-                                        <form:errors path="name"></form:errors>
-                                                                                
-                                    </div>
+                                  
                                     <div class="form-floating mb-3">
                                         
                                         <form:input path="email" id="email" cssClass="form-control"/>
@@ -81,13 +61,7 @@
                                         <form:errors path="email"></form:errors>
                                         
                                     </div>
-                                      <div class="form-floating mb-3">
-                                        
-                                       <input class="form-control" id="birth" name="birth" type="date" placeholder="name@example.com" data-sb-validations="required,email" />                                        
-                                        <label for="birth">birth</label>                                        
-                                       	<form:errors path="birth"></form:errors>
-                                    </div>
-                                    
+                                   
                                     <!-- Submit success message-->
                                     <!---->
                                     <!-- This is what your users will see when the form-->

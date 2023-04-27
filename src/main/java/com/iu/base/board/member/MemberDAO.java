@@ -23,4 +23,10 @@ public interface MemberDAO {
 	public int setLogOut (MemberVO memberVO)throws Exception;
 	
 	public int setEnabled ()throws Exception;
+	
+	public List<MemberVO> getBirth()throws Exception;
+
+	public MemberVO getMemberDetail(MemberVO memberVO)throws Exception;
+
+	public int setMemberUpdatePw(MemberVO memberVO)throws Exception;
 }
