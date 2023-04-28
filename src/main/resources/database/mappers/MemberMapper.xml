@@ -35,12 +35,12 @@
   	</select>
  
  	<select id="idDuplicateCheck" parameterType="MemberVO" resultType="MemberVO">
- 		SELECT username FROM MEMBER WHERE username=#{username}
+ 		SELECT username, password FROM MEMBER WHERE username=#{username}
  	</select>
  
  
  	<select id="getLogin" parameterType="MemberVO" resultMap="getLoginResult">
- 		SELECT M.username,M.password, M.email, R.num, R.ROLENAME
+ 		SELECT M.username,M.password, M.enabled, M.email, R.num, R.ROLENAME
  		FROM MEMBER M
  			INNER JOIN
  			MEMBERROLE MR
@@ -75,6 +75,7 @@
  		<id property="username" column="USERNAME"/>
  		<result property="password" column="PASSWORD" />
  		<result property="email" column="EMAIL"/>
+ 		<result property="enabled" column="ENABLED"/>
  		<collection property="roleVOs" javaType="List" ofType="RoleVO">
  			<id property="num" column="NUM"/>
  			<result property="roleName" column="ROLENAME"/>

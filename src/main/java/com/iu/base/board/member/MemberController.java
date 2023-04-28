@@ -12,6 +12,7 @@ import org.apache.catalina.filters.ExpiresFilter.XHttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,9 @@ public class MemberController {
 
    @Autowired
    private MemberService memberService;
+   
+   @Autowired
+   private PasswordEncoder passeEncoder;
    
    @GetMapping("findPassword")
 	public ModelAndView getMemberFindPw(MemberVO memberVO) {
@@ -64,6 +68,18 @@ public class MemberController {
    
    @GetMapping("info")
    public void info(HttpSession session) {
+	   String pw = "useruser2";
+	   
+	   MemberVO memberVO = (MemberVO) memberService.loadUserByUsername("useruser2");
+	   
+	   log.error("{} :::: ",memberVO.getPassword());
+	   log.error("{} :::: ",passeEncoder.encode(pw));
+	   log.error("{} :::: ",memberVO.getPassword().equals( passeEncoder.encode(pw)));
+	   
+	   boolean check = passeEncoder.matches(pw, memberVO.getPassword());
+	   log.error("{} :::: ",check);
+	   
+	   
 	   log.error("======= Login Info ======");
 	   //SPRING_SECURITY_CONTEXT
 //	   Enumeration<String> names = session.getAttributeNames();

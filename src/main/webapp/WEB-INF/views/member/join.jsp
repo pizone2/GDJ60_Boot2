@@ -44,6 +44,7 @@
                                 <!-- https://startbootstrap.com/solution/contact-forms-->
                                 <!-- to get an API token!-->
                                 
+                                
                                  <form:form id="contactForm" modelAttribute="memberVO" action="./join" method="post" enctype="multipart/form-data">
                                     <!-- Name input-->
                                     <div class="form-floating mb-3">
