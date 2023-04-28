@@ -44,17 +44,22 @@
                                 <form id="contactForm" action="./login" method="post" data-sb-form-api-token="API_TOKEN">
                                     <!-- Name input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="username" name="username" type="text" placeholder="Enter your name..." data-sb-validations="required" />
+                                        <input class="form-control" id="username" value="${cookie.remember.value}" name="username" type="text" placeholder="Enter your name..." data-sb-validations="required" />
                                         <label for="username"></label>
                                         <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                                     </div>
-                                    <!-- Email address input-->
+                                    <!--password-->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="password" name="password" type="password" placeholder="name@example.com" data-sb-validations="required,email" />
                                         <label for="password">Password</label>
                                         <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
                                         <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
                                     </div>
+                                    
+                                    <div class="form-floating mb-3">
+                                        <input  id="remember" name="remember" type="checkbox" value="remember" placeholder="name@example.com" data-sb-validations="required,email" />
+                                        <label for="remember">ID기억하기</label>
+                                     </div>
                                     
                                     <!-- Submit success message-->
                                     <!---->
