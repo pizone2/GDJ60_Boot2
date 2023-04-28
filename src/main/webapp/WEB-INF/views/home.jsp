@@ -26,7 +26,7 @@
                     <div class="row gx-5 align-items-center justify-content-center">
                         <div class="col-lg-8 col-xl-7 col-xxl-6">
                             <div class="my-5 text-center text-xl-start">
-                     0           <h1 class="display-5 fw-bolder text-white mb-2">A Bootstrap 5 template for modern businesses</h1>
+                                <h1 class="display-5 fw-bolder text-white mb-2">A Bootstrap 5 template for modern businesses</h1>
                                 <p class="lead fw-normal text-white-50 mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit!</p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                                     <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
@@ -48,9 +48,14 @@
                         
                       <%--   <c:if test="${not empty member}"> --%>
                         <h1>
-                        	<spring:message code="loginSuccess" text="없는 message" arguments="${member.userName},${member.name}" argumentSeparator="," ></spring:message>	
-                        	<sec:authorize access="isAuthenticated()">로그인 성공</sec:authorize>
+                        	<spring:message code="loginSuccess" text="없는 message" arguments="${member.username},${member.name}" argumentSeparator="," ></spring:message>	
+                        	<sec:authorize access="isAuthenticated()">
+                        	로그인 성공 :
+                        	
+                        	<sec:authentication property="name"/>
+                        	</sec:authorize>
                         	<sec:authorize access="!isAuthenticated()">로그인 전</sec:authorize>
+                        	
                         </h1>
                         <%-- </c:if> --%>
                         <h2 class="fw-bolder mb-0">A better way to start building.</h2></div>

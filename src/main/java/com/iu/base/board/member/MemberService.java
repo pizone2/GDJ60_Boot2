@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 @Transactional(rollbackFor =  Exception.class)
-public class MemberService implements UserDetailsService {
+public class MemberService  implements UserDetailsService {
 
 	@Autowired
 	private MemberDAO memberDAO;

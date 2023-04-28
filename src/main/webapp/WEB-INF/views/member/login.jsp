@@ -44,12 +44,13 @@
                                 <c:if test="${not empty param.errorMessage}">                  
 				                	 <h1>"${param.errorMessage}"</h1>
 			                    </c:if>
-			                    
+			                    0
 			                    <c:if test="${empty param.errorMessage}">                  
 				                	 <h1>param 비어있음</h1>
 			                    </c:if>
                                 
                                 <form id="contactForm" action="./login" method="post" data-sb-form-api-token="API_TOKEN">
+                                    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                                     <!-- Name input-->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="username" value="${cookie.remember.value}" name="username" type="text" placeholder="Enter your name..." data-sb-validations="required" />
@@ -92,6 +93,7 @@
                                 
                                 
                                 <a href="./findPassword">비밀번호 찾기</a>
+                                <a href="/oauth2/authorization/kakao">kakao Login</a>
                             </div>
                         </div>
                     </div>

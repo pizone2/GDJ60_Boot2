@@ -1,5 +1,6 @@
 package com.iu.base.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,12 +11,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.iu.base.security.UserLogoutSuccessHandler;
+import com.iu.base.board.member.MemberService;
+import com.iu.base.board.member.MemberSocialService;
 import com.iu.base.security.UserLoginFailHandler;
 import com.iu.base.security.UserSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	
+	
+	
+	@Autowired
+	private MemberSocialService memberSocialService;
 
 	@Bean
 	//public 을 선언하면 default로 바꾸라는 메세지 출력
@@ -34,15 +42,18 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity httpSecurity)throws Exception{
 		httpSecurity
-				.cors()
+				.cors()				
 				.and()
 				.csrf()
 				.disable()
+			
+				
+				
 			.authorizeRequests()
 				// URL과 권한 매창
 				.antMatchers("/").permitAll()
 				.antMatchers("/member/join").permitAll()
-				.antMatchers("/notice/add").hasRole("ADMIN")
+				.antMatchers("/notice/add").hasRole("MEMBER")
 				.antMatchers("/notice/update").hasRole("ADMIN")
 				.antMatchers("/notice/delete").hasRole("ADMIN")
 				.antMatchers("/notice/*").permitAll()
@@ -67,8 +78,15 @@ public class SecurityConfig {
 				.invalidateHttpSession(true)
 				.deleteCookies("JSESSIONID")
 				.permitAll()
+				.and()
+			.oauth2Login()
+				.userInfoEndpoint()
+				.userService(memberSocialService)
 				;
-				
+//		 .sessionManagement()
+//          .maximumSessions(1) //최대허용가능한 session의수 -1은 무한대접속가능 
+//          .maxSessionsPreventsLogin(false)//flase 이전사용자 세션마료,
+//				;
 				
 			
 				
