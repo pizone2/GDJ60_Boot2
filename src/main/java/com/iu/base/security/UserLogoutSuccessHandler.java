@@ -48,8 +48,8 @@ public class UserLogoutSuccessHandler implements LogoutSuccessHandler{
 		
 
 		
-		//response.sendRedirect("https://kauth.kakao.com/oauth/logout?client_id="+restKey+"&logout_redirect_uri=http://localhost/");
-		//log.error("restKey Test @@@@@@@@  {}  @@@@@@@@",restKey);
+		response.sendRedirect("https://kauth.kakao.com/oauth/logout?client_id="+restKey+"&logout_redirect_uri=http://ec2-13-124-17-143.ap-northeast-2.compute.amazonaws.com");
+		log.error("restKey Test @@@@@@@@  {}  @@@@@@@@",restKey);
 		
 	}
 //	private void simpleLogout() {
