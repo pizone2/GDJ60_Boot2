@@ -14,6 +14,7 @@ import com.iu.base.security.UserLogoutSuccessHandler;
 import com.iu.base.board.member.MemberService;
 import com.iu.base.board.member.MemberSocialService;
 import com.iu.base.security.UserLoginFailHandler;
+import com.iu.base.security.UserLogoutHandler;
 import com.iu.base.security.UserSuccessHandler;
 
 @Configuration
@@ -21,9 +22,16 @@ import com.iu.base.security.UserSuccessHandler;
 public class SecurityConfig {
 	
 	
-	
+	@Autowired
+	private UserLogoutSuccessHandler userLogoutSuccessHandler;
+
 	@Autowired
 	private MemberSocialService memberSocialService;
+	
+	@Autowired
+	private UserLogoutHandler userLogoutHandler;
+	
+	
 
 	@Bean
 	//public 을 선언하면 default로 바꾸라는 메세지 출력
@@ -74,7 +82,8 @@ public class SecurityConfig {
 			.logout()
 				.logoutUrl("/member/logout")    
 //				.logoutSuccessUrl("/")
-				.logoutSuccessHandler(new UserLogoutSuccessHandler())
+			.addLogoutHandler(userLogoutHandler)
+				.logoutSuccessHandler(userLogoutSuccessHandler)
 				.invalidateHttpSession(true)
 				.deleteCookies("JSESSIONID")
 				.permitAll()

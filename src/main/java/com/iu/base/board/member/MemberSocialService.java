@@ -1,5 +1,6 @@
 package com.iu.base.board.member;
 
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -59,8 +60,11 @@ public class MemberSocialService extends DefaultOAuth2UserService{
 			HashMap<String, Object> m = (HashMap<String, Object>) map.get("properties");
 			log.error("NickName {} :: ",m.get("nickname"));
 			
+			
+			
 			MemberVO memberVO = new MemberVO();
 			memberVO.setUsername(m.get("nickname").toString());
+			memberVO.setAttributes(m);
 			
 			List<RoleVO> roleVOs = new ArrayList<>();
 			RoleVO roleVO = new RoleVO();
